@@ -44,8 +44,8 @@ from . import wpufambinary_read33 as read33
 amof_version = "2.0"
 
 # These are all attributes so far
-processing_software_version = 'v1.0'  # version of this code?
-#processing_software_url = 'not applicable'  # for now
+processing_software_version = 'v1.0'  
+processing_software_url = 'https://github.com/ncasuk/ncas-radar-wind-profiler-1-software' 
 
 # hopefully I can work out how to get this from the release itself
 amf_vocabularies_release = 'https://github.com/ncasuk/AMF_CVs/releases/tag/v2.0.0'
@@ -56,7 +56,7 @@ comment = 'None'
 featureType = 'timeSeriesProfile'
 processing_level = 1
 location_keywords = 'Capel Dewi, Wales, UK'
-project = 'Capel Dewi'  # okay, this is probably not right...
+project = 'Capel Dewi'  
 title = 'profiles of wind speeds, wind direction, snr, width and skew'
 
 # copied straight from IDL
