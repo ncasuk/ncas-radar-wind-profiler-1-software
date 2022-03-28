@@ -6,7 +6,8 @@ build:
     python: "3.8"
 
 formats:
-  - all
+  - pdf
+  - epub
 
 python:
    install:
