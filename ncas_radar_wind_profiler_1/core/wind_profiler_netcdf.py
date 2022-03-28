@@ -3,6 +3,8 @@ Create AMOF compliant netCDF file for ncas-radar-wind-profiler-1 from trw files.
 
 """
 
+#######################################################
+# This section is needed for relative imports to work
 import sys
 from pathlib import Path
 
@@ -18,6 +20,7 @@ if __name__ == '__main__' and __package__ is None:
 
     import ncas_radar_wind_profiler_1.core
     __package__ = 'ncas_radar_wind_profiler_1.core'
+#######################################################
 
 from netCDF4 import Dataset
 
