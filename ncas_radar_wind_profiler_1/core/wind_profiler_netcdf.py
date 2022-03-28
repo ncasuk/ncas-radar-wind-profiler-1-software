@@ -86,8 +86,8 @@ product_version = '1.0'
 
 
 def main(all_trw_files, processing_software_version=processing_software_version, 
-         amf_vocabularies_release=amf_vocabularies_release, platform=platform, 
-         platform_type=platform_type, comment=comment, featureType=featureType, 
+         processing_software_url=processing_software_url, amf_vocabularies_release=amf_vocabularies_release, 
+         platform=platform, platform_type=platform_type, comment=comment, featureType=featureType, 
          processing_level=processing_level, location_keywords=location_keywords, 
          project=project, title=title, instrument_manufacturer=instrument_manufacturer, 
          instrument_model=instrument_model, instrument_serial_number=instrument_serial_number, 
@@ -105,6 +105,7 @@ def main(all_trw_files, processing_software_version=processing_software_version,
     Args:
         all_trw_files (list): Full path names to all of the trw files from the wind profiler to be included in netCDF file. Expected structre of file name is YYmddHMM, where m and H are alpha-numeric (0-9,a-n/c).
         processing_software_version (str): Version number of the software used to process and QC the data. Global attribute for netCDF file.
+        processing_software_url (str): URL to this processing code repository.
         amf_vocabularies_release (str): URL to AMF Vocabularies repository. Global attribute for netCDF file.
         platform (str): Name of the platform on which the instrument was deployed. Global attribute for netCDF file.
         platform_type (str): Type of platform on which the instrument was deployed. Global attribute for netCDF file.
@@ -208,8 +209,7 @@ def main(all_trw_files, processing_software_version=processing_software_version,
     ncfile.title = title
     ncfile.product_version = f'v{product_version}'
     
-    #ncfile.processing_software_url = 'https://www.github.com'
-    #ncfile.product_version = 'v1.0'
+    ncfile.processing_software_url = processing_software_url
     
     # I think this should be in the json files, but it's not, so for now...
     ncfile.institution = 'National Centre for Atmospheric Science (NCAS)'
