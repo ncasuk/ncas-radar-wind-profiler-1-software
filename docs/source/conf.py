@@ -14,6 +14,11 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('../..'))
 
+on_rtd = os.environ.get("READTHEDOCS", None) == "True"
+
+rtd_version = os.environ.get("READTHEDOCS_VERSION", "latest")
+if rtd_version not in ["stable", "latest"]:
+    rtd_version = "stable"
 
 # -- Project information -----------------------------------------------------
 
@@ -61,3 +66,7 @@ html_static_path = ['_static']
 
 
 html_favicon = 'cropped-ncas-32x32.png'
+
+from robotpy_sphinx.sidebar import generate_sidebar
+
+generate_sidebar(globals(), "nrwp1", "https://raw.githubusercontent.com/joshua-hampton/amof-docs-home-test/main/sidebar.toml")

@@ -13,6 +13,8 @@ Welcome to ncas-radar-wind-profiler-1's documentation!
    api.rst
 
 
+.. include:: _sidebar.rst.inc
+
 
 Indices and tables
 ==================
