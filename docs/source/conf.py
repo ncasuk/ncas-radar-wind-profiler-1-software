@@ -69,4 +69,4 @@ html_favicon = 'cropped-ncas-32x32.png'
 
 from robotpy_sphinx.sidebar import generate_sidebar
 
-generate_sidebar(globals(), "nrwp1", "https://raw.githubusercontent.com/joshua-hampton/amof-docs-home-test/main/sidebar.toml")
+generate_sidebar(globals(), "ncas_radar_wind_profiler_1_software", "https://raw.githubusercontent.com/joshua-hampton/amof-docs-home-test/main/sidebar.toml")
