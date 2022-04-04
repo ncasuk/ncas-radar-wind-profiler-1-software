@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#
+# ./make_netcdf.sh YYYYmmdd
+#
+
+
 netcdf_path="/home/users/earjham/bin/writing_netcdf/test_nc_files"
 filepath_trt0="/home/users/earjham/data/ncas-radar-wind-profiler-1/TRT/TRT0"
 filepath_trt1="/home/users/earjham/data/ncas-radar-wind-profiler-1/TRT/TRT1"
@@ -9,12 +14,11 @@ conda activate netcdf_create
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
+datadate=$1
 
-# today date
-
-year=$(date +"%Y")
-month=$(date +"%m")
-day=$(date +"%d")
+year=${datadate:0:4}
+month=${datadate:4:2}
+day=${datadata:6:2}
 
 
 # month needs to be alpha-numeric-ised (I'm going with it)
