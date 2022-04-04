@@ -18,7 +18,7 @@ datadate=$1
 
 year=${datadate:0:4}
 month=${datadate:4:2}
-day=${datadata:6:2}
+day=${datadate:6:2}
 
 
 # month needs to be alpha-numeric-ised (I'm going with it)
