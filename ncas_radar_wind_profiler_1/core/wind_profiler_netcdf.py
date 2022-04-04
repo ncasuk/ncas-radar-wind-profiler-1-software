@@ -26,7 +26,7 @@ from netCDF4 import Dataset
 
 import numpy as np
 import datetime as dt
-
+import argparse
 
 from ..util import create_netcdf as create_netcdf
 from ..util import add_datasets as add_datasets
@@ -242,5 +242,13 @@ def main(all_trw_files, processing_software_version=processing_software_version,
     
     
 if __name__ == "__main__":
-    all_trw_files = sys.argv[1:]
-    main(all_trw_files)
+    parser = argparse.ArgumentParser(usage = '%(prog)s textfile [options]', description = "Create netCDF file for ncas-radar-wind-profiler-1. To edit more options, call the function main function from another python script.")
+    parser.add_argument("trwfiles", default = None, nargs='+', help = "List of input trw files to create netCDF from")
+    parser.add_argument("-o", "--output-location", dest = "outloc", default = "/home/users/earjham/bin/writing_netcdf/test_nc_files", help = "Location for netCDF file")
+    
+    args = parser.parse_args()
+    
+    if args.trwfiles == None:
+        raise ValueError("TRW files with data from instrument must be given!")
+    
+    main(args.trwfiles, netcdf_file_location=args.outloc) 
