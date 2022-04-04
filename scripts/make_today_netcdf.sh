@@ -12,9 +12,9 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 # yesterday date
 
-year=$(date --date="yesterday" +"%Y")
-month=$(date --date="yesterday" +"%m")
-day=$(date --date="yesterday" +"%d")
+year=$(date +"%Y")
+month=$(date +"%m")
+day=$(date +"%d")
 
 
 # month needs to be alpha-numeric-ised (I'm going with it)
