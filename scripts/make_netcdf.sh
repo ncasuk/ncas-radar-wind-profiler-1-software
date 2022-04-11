@@ -5,16 +5,16 @@
 #
 
 
-netcdf_path="/home/users/earjham/bin/writing_netcdf/test_nc_files"
-filepath_trt0="/home/users/earjham/data/ncas-radar-wind-profiler-1/TRT/TRT0"
-filepath_trt1="/home/users/earjham/data/ncas-radar-wind-profiler-1/TRT/TRT1"
-logfilepath="/home/users/earjham/nrwp1logs"
+netcdf_path="/gws/nopw/j04/ncas_obs/cdao/processing/ncas-radar-wind-profiler-1/netcdf_files"
+filepath_trt0="/gws/nopw/j04/ncas_obs/cdao/raw_data/ncas-radar-wind-profiler-1/incoming/TRT0"
+filepath_trt1="/gws/nopw/j04/ncas_obs/cdao/raw_data/ncas-radar-wind-profiler-1/incoming/TRT1"
+logfilepath="/home/users/earjham/logs/nrwp1logs"
 
 conda activate netcdf_create
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-datadate=$1
+datadate=$1  # YYYYmmdd
 
 year=${datadate:0:4}
 month=${datadate:4:2}
