@@ -1,0 +1,7 @@
+netCDF4
+numpy
+pandas
+pip
+requests
+Sphinx
+robotpy-sphinx-plugin
