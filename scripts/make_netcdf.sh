@@ -4,7 +4,8 @@
 # ./make_netcdf.sh YYYYmmdd
 #
 
-conda activate netcdf_create
+#source ~/miniconda3/etc/profile.d/conda.sh
+#conda activate netcdf_create
 
 netcdf_path="/gws/nopw/j04/ncas_obs/cdao/processing/ncas-radar-wind-profiler-1/netcdf_files"
 filepath_trt0="/gws/nopw/j04/ncas_obs/cdao/raw_data/ncas-radar-wind-profiler-1/incoming/TRT0"
