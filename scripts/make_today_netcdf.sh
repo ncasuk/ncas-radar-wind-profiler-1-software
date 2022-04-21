@@ -7,4 +7,7 @@ month=$(date +"%m")
 day=$(date +"%d")
 
 # call make_netcdf script
-./make_netcdf.sh ${year}${month}${day}
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+${SCRIPT_DIR}/make_netcdf.sh ${year}${month}${day}
