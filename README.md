@@ -33,7 +33,6 @@ Three [scripts] are provided for easy use:
 * `make_yesterday_netcdf.sh` - makes netCDF file for yesterday's data: `./make_yesterday_netcdf.sh`
 
 Within `make_netcdf.sh`, the following may need adjusting:
-* `conda activate netcdf_create`: replace `netcdf_create` with name of conda environment being used
 * `netcdf_path="/gws/..."`: replace file path with where to write netCDF files
 * `filepath_trt0="/gws/..."`: replace file path with path to data. The same applies to `filepath_trt1="/gws/..."`
 * `logfilepath"/home/..."`: replace file path with path for where to write log files
