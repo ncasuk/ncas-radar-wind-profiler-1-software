@@ -27,12 +27,12 @@ from netCDF4 import Dataset
 import numpy as np
 import datetime as dt
 import argparse
+import subprocess
 
 from ..util import create_netcdf as create_netcdf
 from ..util import add_datasets as add_datasets
 from ..util import helpful_functions as hf
 from . import wpufambinary_read33 as read33
-
 
     
 
@@ -45,7 +45,7 @@ amof_version = "2.0"
 
 # These are all attributes so far
 processing_software_version = 'v1.0'  
-processing_software_url = 'https://github.com/ncasuk/ncas-radar-wind-profiler-1-software' 
+processing_software_url = subprocess.check_output(["git", "remote", "-v"]).split()[1].decode().replace('git@github.com:','https://github.com/')
 
 # hopefully I can work out how to get this from the release itself
 amf_vocabularies_release = 'https://github.com/ncasuk/AMF_CVs/releases/tag/v2.0.0'
@@ -217,10 +217,10 @@ def main(all_trw_files, processing_software_version=processing_software_version,
                     
     # Can now add in values to time_coverage_start and time_coverage_end global attrs
     first_time = ncfile['time'][0]  # should be unix time
-    first_time = dt.datetime.fromtimestamp(int(first_time))
+    first_time = dt.datetime.fromtimestamp(int(first_time), dt.timezone.utc)
     ncfile.time_coverage_start = first_time.strftime('%Y-%m-%dT%H:%M:%S')
     last_time = ncfile['time'][-1]  # should be unix time
-    last_time = dt.datetime.fromtimestamp(int(last_time))
+    last_time = dt.datetime.fromtimestamp(int(last_time), dt.timezone.utc)
     ncfile.time_coverage_end = last_time.strftime('%Y-%m-%dT%H:%M:%S')
     
     
