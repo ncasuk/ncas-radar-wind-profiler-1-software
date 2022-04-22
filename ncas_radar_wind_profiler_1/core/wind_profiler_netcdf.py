@@ -46,7 +46,6 @@ amof_version = "2.0"
 # These are all attributes so far
 processing_software_version = 'v1.0'  
 processing_software_url = subprocess.check_output(["git", "remote", "-v"]).split()[1].decode().replace('git@github.com:','https://github.com/')
-#processing_software_url = 'https://github.com/ncasuk/ncas-radar-wind-profiler-1-software' 
 
 # hopefully I can work out how to get this from the release itself
 amf_vocabularies_release = 'https://github.com/ncasuk/AMF_CVs/releases/tag/v2.0.0'
