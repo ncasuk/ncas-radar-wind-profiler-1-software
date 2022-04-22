@@ -109,7 +109,7 @@ def main(full_filename, verbose=0, classification=0, variance_test=1):
     minutes = int(filename[6:8])
     
     # create datetime object
-    date_time_from_filename = dt.datetime(year, month, day, hour, minutes)
+    date_time_from_filename = dt.datetime(year, month, day, hour, minutes, tzinfo=dt.timezone.utc)
     
     time_in_minutes_since_start_of_day = date_time_from_filename.hour*60 + date_time_from_filename.minute
     time_in_seconds_since_start_of_day = time_in_minutes_since_start_of_day*60
@@ -129,7 +129,7 @@ def main(full_filename, verbose=0, classification=0, variance_test=1):
     # TRANSLATE THE FILE #
     ######################
     
-    # idl code lins 364 - 434
+    # idl code lines 364 - 434
     # first line
     
     # first two bytes are ignored
@@ -154,14 +154,14 @@ def main(full_filename, verbose=0, classification=0, variance_test=1):
     # 11th and 12th bytes are ignored
     # start date - 13th-16th bytes (well, 16th-13th), unix time
     start_date_unix = int(f"0b{decimalToBinary(data[15])}{decimalToBinary(data[14])}{decimalToBinary(data[13])}{decimalToBinary(data[12])}",2)
-    start_date = dt.datetime.fromtimestamp(start_date_unix)
+    start_date = dt.datetime.fromtimestamp(start_date_unix, dt.timezone.utc)
     
     # get day of year from this time stamp
     day_of_year = start_date.timetuple().tm_yday
     
     # end date is 17th-20th bytes
     end_date_unix = int(f"0b{decimalToBinary(data[19])}{decimalToBinary(data[18])}{decimalToBinary(data[17])}{decimalToBinary(data[16])}",2)
-    end_date = dt.datetime.fromtimestamp(end_date_unix)
+    end_date = dt.datetime.fromtimestamp(end_date_unix, dt.timezone.utc)
     
     # 21st and 22nd bytes - update rate
     update_rate = int(f"0b{decimalToBinary(data[21])}{decimalToBinary(data[20])}",2)

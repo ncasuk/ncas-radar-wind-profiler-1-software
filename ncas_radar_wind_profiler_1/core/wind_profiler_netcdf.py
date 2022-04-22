@@ -33,7 +33,6 @@ from ..util import add_datasets as add_datasets
 from ..util import helpful_functions as hf
 from . import wpufambinary_read33 as read33
 
-
     
 
 #################################
@@ -217,10 +216,10 @@ def main(all_trw_files, processing_software_version=processing_software_version,
                     
     # Can now add in values to time_coverage_start and time_coverage_end global attrs
     first_time = ncfile['time'][0]  # should be unix time
-    first_time = dt.datetime.fromtimestamp(int(first_time))
+    first_time = dt.datetime.fromtimestamp(int(first_time), dt.timezone.utc)
     ncfile.time_coverage_start = first_time.strftime('%Y-%m-%dT%H:%M:%S')
     last_time = ncfile['time'][-1]  # should be unix time
-    last_time = dt.datetime.fromtimestamp(int(last_time))
+    last_time = dt.datetime.fromtimestamp(int(last_time), dt.timezone.utc)
     ncfile.time_coverage_end = last_time.strftime('%Y-%m-%dT%H:%M:%S')
     
     
