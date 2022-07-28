@@ -14,3 +14,5 @@ tmp/nanoc/
 
 # Crash Log
 crash.log
+
+*.nc
