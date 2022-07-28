@@ -10,8 +10,6 @@ Requirements
 * python modules:
   * netCDF4
   * numpy
-  * pandas
-  * requests
 
 
 Installation
