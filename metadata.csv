@@ -1,0 +1,20 @@
+processing_level,1
+featureType,timeSeriesProfile
+platform_type,stationary_platform
+instrument_software,radtrt
+calibration_sensitivity,not applicable
+calibration_certification_date,not applicable
+calibration_certification_url,not applicable
+location_keywords,Capel Dewi, Wales, UK
+project,Capel Dewi
+processing_software_url,https://github.com/ncasuk/ncas-radar-wind-profiler-1-software.git
+processing_software_version,v2.0
+title,profiles of wind speeds, wind direction, snr, width and skew
+product_version,v1.0
+creator_name,Emily Norton
+creator_email,emily.norton@ncas.ac.uk
+creator_url,https://orcid.org/0000-0002-8879-9325
+project_principal_investigator,Geraint Vaughan
+project_principal_investigator_email,geraint.vaughan@manchester.ac.uk
+project_principal_investigator_url,https://orcid.org/0000-0002-0885-0398
+comment,None
