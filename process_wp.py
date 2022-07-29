@@ -38,14 +38,14 @@ def make_netcdf_snr_winds(trw_files, metadata_file = None, ncfile_location = '.'
         if verbose: print(f'Reading {i+1} of {len(trw_files)} files')
         data, attrs = get_data(trw_files[i])
         this_unix_times, this_doy, this_years, this_months, this_days, this_hours, this_minutes, this_seconds, this_time_coverage_start_dt, this_time_coverage_end_dt, this_file_date = util.get_times([dt.datetime.fromtimestamp(data['time'], dt.timezone.utc)])
-        all_unix_times.append(this_unix_times)
-        all_doy.append(this_doy)
-        all_years.append(this_years)
-        all_months.append(this_months)
-        all_days.append(this_days)
-        all_hours.append(this_hours)
-        all_minutes.append(this_minutes)
-        all_seconds.append(this_seconds)
+        all_unix_times.append(this_unix_times[0])
+        all_doy.append(this_doy[0])
+        all_years.append(this_years[0])
+        all_months.append(this_months[0])
+        all_days.append(this_days[0])
+        all_hours.append(this_hours[0])
+        all_minutes.append(this_minutes[0])
+        all_seconds.append(this_seconds[0])
         all_time_coverage_start_dt.append(this_time_coverage_start_dt)
         all_time_coverage_end_dt.append(this_time_coverage_end_dt)
         all_file_date.append(this_file_date)
@@ -78,6 +78,25 @@ def make_netcdf_snr_winds(trw_files, metadata_file = None, ncfile_location = '.'
     else:
         msg = "More than one date found in input files, quiting..."
         raise ValueError(msg)
+        
+    # check all altitudes are the same, and same check for lats and lons
+    if not (all_data['altitude'][1:,:] == all_data['altitude'][:-1,:]).all():
+        msg = "Changing altitudes, needs some manual intervention I expect"
+        raise ValueError(msg)
+        
+    if len(set(all_data['latitude'])) != 1:
+        msg = "Changing latitude"
+        raise ValueError(msg)
+        
+    if len(set(all_data['longitude'])) != 1:
+        msg = "Changing longitude"
+        raise ValueError(msg)
+    #
+    #
+    #
+    
+    # snr-winds has an extra time variable - time_minutes_since_start_of_day
+    time_minutes_since_start_of_day = np.array(all_hours)*60 + np.array(all_minutes) + np.array(all_seconds)/60
         
     
     if verbose: print('Creating netCDF file')
@@ -119,6 +138,8 @@ def make_netcdf_snr_winds(trw_files, metadata_file = None, ncfile_location = '.'
     util.update_variable(ncfile, 'minute', all_minutes)
     util.update_variable(ncfile, 'second', all_seconds)
     util.update_variable(ncfile, 'day_of_year', all_doy)
+    
+    util.update_variable(ncfile, 'time_minutes_since_start_of_day', time_minutes_since_start_of_day)
     
     
     ncfile.setncattr('time_coverage_start', dt.datetime.fromtimestamp(min(all_time_coverage_start_dt), dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S %Z"))
