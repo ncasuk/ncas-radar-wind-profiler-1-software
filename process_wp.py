@@ -16,7 +16,7 @@ def get_data(trw_file):
 
 
 
-def make_netcdf_snr_winds(trw_files, metadata_file = None, ncfile_location = '.', verbose = True):
+def make_netcdf_snr_winds(trw_files, metadata_file = None, ncfile_location = '.', verbose = True, options = ''):
     """
     trw_files - list
     """
@@ -100,9 +100,12 @@ def make_netcdf_snr_winds(trw_files, metadata_file = None, ncfile_location = '.'
         
     
     if verbose: print('Creating netCDF file')
-    create_netcdf.main('ncas-radar-wind-profiler-1', date = file_date, dimension_lengths = {'time':len(all_data['time']), 'altitude': all_data['altitude'].shape[1]}, loc = 'land', products = ['snr-winds'], file_location = ncfile_location, options='high-mode_15min')
-    os.rename(f'{ncfile_location}/ncas-radar-wind-profiler-1_mobile_{file_date}_snr-winds_high-mode_15min_v1.0.nc',f'{ncfile_location}/ncas-radar-wind-profiler-1_cdao_{file_date}_snr-winds_high-mode_15min_v1.0.nc')
-    ncfile = Dataset(f'{ncfile_location}/ncas-radar-wind-profiler-1_cdao_{file_date}_snr-winds_high-mode_15min_v1.0.nc', 'a')
+    if options == '':
+        create_netcdf.main('ncas-radar-wind-profiler-1', date = file_date, dimension_lengths = {'time':len(all_data['time']), 'altitude': all_data['altitude'].shape[1]}, loc = 'land', products = ['snr-winds'], file_location = ncfile_location)
+    else:
+        create_netcdf.main('ncas-radar-wind-profiler-1', date = file_date, dimension_lengths = {'time':len(all_data['time']), 'altitude': all_data['altitude'].shape[1]}, loc = 'land', products = ['snr-winds'], file_location = ncfile_location, options = options[:-1])
+    os.rename(f'{ncfile_location}/ncas-radar-wind-profiler-1_mobile_{file_date}_snr-winds_{options}v1.0.nc',f'{ncfile_location}/ncas-radar-wind-profiler-1_cdao_{file_date}_snr-winds_{options}v1.0.nc')
+    ncfile = Dataset(f'{ncfile_location}/ncas-radar-wind-profiler-1_cdao_{file_date}_snr-winds_{options}v1.0.nc', 'a')
     
     if verbose: print('Adding variable data to file')
     util.update_variable(ncfile, 'altitude', all_data['altitude'][0])
@@ -156,7 +159,7 @@ def make_netcdf_snr_winds(trw_files, metadata_file = None, ncfile_location = '.'
     ncfile.close()
     
     if verbose: print('Removing empty variables')
-    remove_empty_variables.main(f'{ncfile_location}/ncas-radar-wind-profiler-1_cdao_{file_date}_snr-winds_high-mode_15min_v1.0.nc', verbose = verbose, skip_check = True)
+    remove_empty_variables.main(f'{ncfile_location}/ncas-radar-wind-profiler-1_cdao_{file_date}_snr-winds_{options}v1.0.nc', verbose = verbose, skip_check = True)
     
     
     
@@ -169,9 +172,15 @@ def main():
     parser.add_argument('-v','--verbose', action='store_true', help = 'Print out additional information.', dest = 'verbose')
     parser.add_argument('-m','--metadata', type = str, help = 'csv file with global attributes and additional metadata. Default is None', dest='metadata')
     parser.add_argument('-o','--ncfile-location', type=str, help = 'Path for where to save netCDF file. Default is .', default = '.', dest="ncfile_location")
+    parser.add_argument('-t','--options', type=str, help = 'Options allowed by standard in netCDF file name, e.g. "high-mode_15min".', default = '', dest="options")
     # there is only one data product at the moment - snr-winds - but this code will stay here commented out in case of future need
     #parser.add_argument('-p','--products', nargs = '*', help = 'Products of ncas-radar-wind-profiler-1 to make netCDF files for. Options are snr-winds. One or many can be given (space separated), default is "snr-winds".', default = ['snr-winds'])
     args = parser.parse_args()
+    
+    if args.options != '' and args.options[-1] != '_':
+        options = args.options + '_'
+    else:
+        options = args.options
     
     # again this code is still here for any potential future use
     '''
@@ -180,7 +189,7 @@ def main():
             make_netcdf_snr_winds(args.input_file, metadata_file = args.metadata, ncfile_location = args.ncfile_location, verbose = args.verbose)
         print(f'WARNING: {prod} is not recognised for this instrument, continuing with other prodcuts...')
     '''
-    make_netcdf_snr_winds(args.input_file, metadata_file = args.metadata, ncfile_location = args.ncfile_location, verbose = args.verbose)
+    make_netcdf_snr_winds(args.input_file, metadata_file = args.metadata, ncfile_location = args.ncfile_location, verbose = args.verbose, options = options)
     
     
 if __name__ == "__main__":
