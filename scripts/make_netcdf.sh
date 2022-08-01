@@ -42,8 +42,8 @@ no_trt0_files=$(ls ${filepath_trt0}/${year}/${month}/${year}${anmonth}${day}.TRT
 trt1_files=$(ls ${filepath_trt1}/${year}/${month}/${year}${anmonth}${day}.TRT/*)
 no_trt1_files=$(ls ${filepath_trt1}/${year}/${month}/${year}${anmonth}${day}.TRT/* | wc -l)
 
-python ${SCRIPT_DIR}/../ncas_radar_wind_profiler_1/core/wind_profiler_netcdf.py ${trt0_files} -o ${netcdf_path}
-python ${SCRIPT_DIR}/../ncas_radar_wind_profiler_1/core/wind_profiler_netcdf.py ${trt1_files} -o ${netcdf_path}
+python ${SCRIPT_DIR}/../process_wp.py ${trt0_files} -o ${netcdf_path} -t high-mode_15min
+python ${SCRIPT_DIR}/../process_wp.py ${trt1_files} -o ${netcdf_path} -t low-mode_15min
 
 
 if [ -f ${netcdf_path}/ncas-radar-wind-profiler-1_cdao_${year}${month}${day}_snr-winds_low-mode_*.nc ]

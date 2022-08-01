@@ -1,4 +1,2 @@
 netCDF4
 numpy
-pandas
-requests

@@ -10,8 +10,6 @@ Requirements
 * python modules:
   * netCDF4
   * numpy
-  * pandas
-  * requests
 
 
 Installation
@@ -37,7 +35,7 @@ python process_wp.py /path/to/raw1.trw /path/to/raw2.trw ... -m metadata.csv
 Additional flags that can be given for each python script:
 * `-o` or `--ncfile-location` - where to write the netCDF files to. If not given, default is `'.'`
 * `-v` or `--verbose` - print additional information as the script runs
-
+* `-t` or `--options` - define options for netCDF file name as allowed by the standard, e.g. `high-mode_15min`
 
 A description of all the available options can be obtained using the `-h` flag, for example
 ```
