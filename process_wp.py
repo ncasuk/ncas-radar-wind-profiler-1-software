@@ -145,8 +145,8 @@ def make_netcdf_snr_winds(trw_files, metadata_file = None, ncfile_location = '.'
     util.update_variable(ncfile, 'time_minutes_since_start_of_day', time_minutes_since_start_of_day)
     
     
-    ncfile.setncattr('time_coverage_start', dt.datetime.fromtimestamp(min(all_time_coverage_start_dt), dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S %Z"))
-    ncfile.setncattr('time_coverage_end', dt.datetime.fromtimestamp(max(all_time_coverage_end_dt), dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S %Z"))
+    ncfile.setncattr('time_coverage_start', dt.datetime.fromtimestamp(min(all_time_coverage_start_dt), dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S"))
+    ncfile.setncattr('time_coverage_end', dt.datetime.fromtimestamp(max(all_time_coverage_end_dt), dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S"))
     ncfile.setncattr('platform', 'cdao')
     ncfile.setncattr('platform_altitude', all_attrs['platform_altitude'][0])
     ncfile.setncattr('geospatial_bounds', all_attrs['geospatial_bounds'][0])
