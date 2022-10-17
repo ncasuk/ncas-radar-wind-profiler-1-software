@@ -38,9 +38,9 @@ case $month in
 esac
 
 
-trt0_files=$(ls ${filepath_trt0}/${year}/${month}/${year}${anmonth}${day}.TRT/*)
+trt0_files=$(ls ${filepath_trt0}/${year}/${month}/${year}${anmonth}${day}.TRT/*.trw)
 no_trt0_files=$(ls ${filepath_trt0}/${year}/${month}/${year}${anmonth}${day}.TRT/* | wc -l)
-trt1_files=$(ls ${filepath_trt1}/${year}/${month}/${year}${anmonth}${day}.TRT/*)
+trt1_files=$(ls ${filepath_trt1}/${year}/${month}/${year}${anmonth}${day}.TRT/*.trw)
 no_trt1_files=$(ls ${filepath_trt1}/${year}/${month}/${year}${anmonth}${day}.TRT/* | wc -l)
 
 python ${SCRIPT_DIR}/../process_wp.py ${trt0_files} -o ${netcdf_path} -t high-mode_15min -m ${metadata_file}
