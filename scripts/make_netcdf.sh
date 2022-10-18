@@ -9,7 +9,7 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 netcdf_path="/gws/nopw/j04/ncas_obs/cdao/processing/ncas-radar-wind-profiler-1/netcdf_files"
 filepath_trt0="/gws/nopw/j04/ncas_obs/cdao/raw_data/ncas-radar-wind-profiler-1/incoming/TRT0"
 filepath_trt1="/gws/nopw/j04/ncas_obs/cdao/raw_data/ncas-radar-wind-profiler-1/incoming/TRT1"
-logfilepath="/home/users/earjham/logs/nrwp1logs"
+logfilepath="/gws/nopw/j04/ncas_obs/cdao/logs/ncas-radar-wind-profiler-1"
 metadata_file=${SCRIPT_DIR}/../metadata.csv
 
 
@@ -38,10 +38,10 @@ case $month in
 esac
 
 
-trt0_files=$(ls ${filepath_trt0}/${year}/${month}/${year}${anmonth}${day}.TRT/*.trw)
-no_trt0_files=$(ls ${filepath_trt0}/${year}/${month}/${year}${anmonth}${day}.TRT/*.trw | wc -l)
-trt1_files=$(ls ${filepath_trt1}/${year}/${month}/${year}${anmonth}${day}.TRT/*.trw)
-no_trt1_files=$(ls ${filepath_trt1}/${year}/${month}/${year}${anmonth}${day}.TRT/*.trw | wc -l)
+trt0_files=$(ls ${filepath_trt0}/${year}/${month}/${year}${anmonth}${day}.trt/*.trw)
+no_trt0_files=$(ls ${filepath_trt0}/${year}/${month}/${year}${anmonth}${day}.trt/*.trw | wc -l)
+trt1_files=$(ls ${filepath_trt1}/${year}/${month}/${year}${anmonth}${day}.trt/*.trw)
+no_trt1_files=$(ls ${filepath_trt1}/${year}/${month}/${year}${anmonth}${day}.trt/*.trw | wc -l)
 
 python ${SCRIPT_DIR}/../process_wp.py ${trt0_files} -o ${netcdf_path} -t high-mode_15min -m ${metadata_file}
 python ${SCRIPT_DIR}/../process_wp.py ${trt1_files} -o ${netcdf_path} -t low-mode_15min -m ${metadata_file}
