@@ -1,4 +1,4 @@
 [submodule "ncas_amof_netcdf_template"]
 	path = ncas_amof_netcdf_template
-	url = https://github.com/joshua-hampton/ncas_amof_netcdf_template
-        branch = main
+	url = https://github.com/joshua-hampton/ncas_amof_netcdf_template.git
+  branch = main
