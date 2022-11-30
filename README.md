@@ -10,20 +10,16 @@ Requirements
 * python modules:
   * netCDF4
   * numpy
-
+  * [ncas_amof_netcdf_template](https://ncas-amof-netcdf-template.readthedocs.io/en/latest/index.html)
 
 Installation
 ------------
 
-To install, either clone the repo `git clone --recurse-submodules https://github.com/ncasuk/ncas-radar-wind-profiler-1-software.git` or download and extract a release version.
+To install, either clone the repo `git clone https://github.com/ncasuk/ncas-radar-wind-profiler-1-software.git` or download and extract a release version.
 
-If the `--recurse-submodules` flag is not included, the `ncas_amof_netcdf_template` repo will not also be cloned. To fix this, use the following commands in the top level of this repo:
-```
-git submodule init
-git submodule update
-```
+Download the required modules using `pip install -r requirements.txt`.
 
-Download the required modules using `conda install --file requirements.txt` or `pip install -r requirements.txt`
+> Note: the ncas_amof_netcdf_template is not yet available through conda
 
 
 Usage
@@ -61,6 +57,7 @@ Within `make_netcdf.sh`, the following may need adjusting:
 
 * `read_wp.py` contains the code that actually reads the raw data. This is called from within the process wp python code.
 * Some quality control is performed on the data. This is based on code from Emily Norton, the instrument scientist, and is included within `read_wp.py`.
-* See [ncas_amof_netcdf_template] for more information on how the netCDF file is created, and the additional useful functions it contains.
+* See [ncas_amof_netcdf_template] or its [documentation] for more information on how the netCDF file is created, and the additional useful functions it contains.
 
+[documentation]: https://ncas-amof-netcdf-template.readthedocs.io/en/latest/index.html
 [ncas_amof_netcdf_template]: https://github.com/joshua-hampton/ncas_amof_netcdf_template
