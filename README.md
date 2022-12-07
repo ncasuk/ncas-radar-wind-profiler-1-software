@@ -17,9 +17,7 @@ Installation
 
 To install, either clone the repo `git clone https://github.com/ncasuk/ncas-radar-wind-profiler-1-software.git` or download and extract a release version.
 
-Download the required modules using `pip install -r requirements.txt`.
-
-> Note: the ncas_amof_netcdf_template is not yet available through conda
+Download the required modules using `conda install --file requirements.txt` or `pip install -r requirements.txt`.
 
 
 Usage
