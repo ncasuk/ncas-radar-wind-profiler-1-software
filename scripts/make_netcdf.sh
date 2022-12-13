@@ -6,7 +6,7 @@
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-gws_path=/gws/pw/j07/ncas_obs_vol2
+gws_path=/gws/pw/j07/ncas_obs_vol1
 
 netcdf_path=${gws_path}/cdao/processing/ncas-radar-wind-profiler-1/netcdf_files
 filepath_trt0=${gws_path}/cdao/raw_data/ncas-radar-wind-profiler-1/incoming/TRT0
