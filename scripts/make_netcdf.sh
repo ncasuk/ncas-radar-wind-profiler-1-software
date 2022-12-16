@@ -6,10 +6,12 @@
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-netcdf_path="/gws/nopw/j04/ncas_obs/cdao/processing/ncas-radar-wind-profiler-1/netcdf_files"
-filepath_trt0="/gws/nopw/j04/ncas_obs/cdao/raw_data/ncas-radar-wind-profiler-1/incoming/TRT0"
-filepath_trt1="/gws/nopw/j04/ncas_obs/cdao/raw_data/ncas-radar-wind-profiler-1/incoming/TRT1"
-logfilepath="/gws/nopw/j04/ncas_obs/cdao/logs/ncas-radar-wind-profiler-1"
+gws_path=/gws/pw/j07/ncas_obs_vol1
+
+netcdf_path=${gws_path}/cdao/processing/ncas-radar-wind-profiler-1/netcdf_files
+filepath_trt0=${gws_path}/cdao/raw_data/ncas-radar-wind-profiler-1/incoming/TRT0
+filepath_trt1=${gws_path}/cdao/raw_data/ncas-radar-wind-profiler-1/incoming/TRT1
+logfilepath=${gws_path}/cdao/logs/ncas-radar-wind-profiler-1
 metadata_file=${SCRIPT_DIR}/../metadata.csv
 
 
