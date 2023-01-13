@@ -33,7 +33,7 @@ def make_netcdf_snr_winds(trw_files, metadata_file = None, ncfile_location = '.'
     all_time_coverage_start_dt = []
     all_time_coverage_end_dt = []
     all_file_date = []
-    
+
     for i in range(len(trw_files)):
         if verbose: print(f'Reading {i+1} of {len(trw_files)} files')
         data, attrs = get_data(trw_files[i])
@@ -71,34 +71,34 @@ def make_netcdf_snr_winds(trw_files, metadata_file = None, ncfile_location = '.'
                     all_attrs[key] = np.vstack((all_attrs[key],value))
                 else:
                     all_attrs[key].append(value)
-                    
-                    
-    if len(set(all_file_date)) == 1:
-        file_date = all_file_date[0]
+
+
+    if all_file_date[0][:8] == all_file_date[-1][:8]:
+        file_date = all_file_date[0][:8]
     else:
-        msg = "More than one date found in input files, quiting..."
+        msg = f"More than one date found in input files ({set(all_file_date)}), quiting..."
         raise ValueError(msg)
-        
+
     # check all altitudes are the same, and same check for lats and lons
     if not (all_data['altitude'][1:,:] == all_data['altitude'][:-1,:]).all():
         msg = "Changing altitudes, needs some manual intervention I expect"
         raise ValueError(msg)
-        
+
     if len(set(all_data['latitude'])) != 1:
         msg = "Changing latitude"
         raise ValueError(msg)
-        
+
     if len(set(all_data['longitude'])) != 1:
         msg = "Changing longitude"
         raise ValueError(msg)
     #
     #
     #
-    
+
     # snr-winds has an extra time variable - time_minutes_since_start_of_day
     time_minutes_since_start_of_day = np.array(all_hours)*60 + np.array(all_minutes) + np.array(all_seconds)/60
-        
-    
+
+
     if verbose: print('Creating netCDF file')
     if options == '':
         create_netcdf.main('ncas-radar-wind-profiler-1', date = file_date, dimension_lengths = {'time':len(all_data['time']), 'altitude': all_data['altitude'].shape[1]}, loc = 'land', products = ['snr-winds'], file_location = ncfile_location)
@@ -106,7 +106,7 @@ def make_netcdf_snr_winds(trw_files, metadata_file = None, ncfile_location = '.'
         create_netcdf.main('ncas-radar-wind-profiler-1', date = file_date, dimension_lengths = {'time':len(all_data['time']), 'altitude': all_data['altitude'].shape[1]}, loc = 'land', products = ['snr-winds'], file_location = ncfile_location, options = options[:-1])
     os.rename(f'{ncfile_location}/ncas-radar-wind-profiler-1_mobile_{file_date}_snr-winds_{options}v1.0.nc',f'{ncfile_location}/ncas-radar-wind-profiler-1_cdao_{file_date}_snr-winds_{options}v1.0.nc')
     ncfile = Dataset(f'{ncfile_location}/ncas-radar-wind-profiler-1_cdao_{file_date}_snr-winds_{options}v1.0.nc', 'a')
-    
+
     if verbose: print('Adding variable data to file')
     util.update_variable(ncfile, 'altitude', all_data['altitude'][0])
     util.update_variable(ncfile, 'latitude', all_data['latitude'][0])
@@ -132,7 +132,7 @@ def make_netcdf_snr_winds(trw_files, metadata_file = None, ncfile_location = '.'
     util.update_variable(ncfile, 'qc_flag_beam_3', all_data['qc_flag_beam_3'])
     util.update_variable(ncfile, 'qc_flag_rain_detected', all_data['qc_flag_rain_detected'])
     util.update_variable(ncfile, 'qc_flag_wind', all_data['qc_flag_wind'])
-    
+
     util.update_variable(ncfile, 'time', all_unix_times)
     util.update_variable(ncfile, 'year', all_years)
     util.update_variable(ncfile, 'month', all_months)
@@ -141,10 +141,10 @@ def make_netcdf_snr_winds(trw_files, metadata_file = None, ncfile_location = '.'
     util.update_variable(ncfile, 'minute', all_minutes)
     util.update_variable(ncfile, 'second', all_seconds)
     util.update_variable(ncfile, 'day_of_year', all_doy)
-    
+
     util.update_variable(ncfile, 'time_minutes_since_start_of_day', time_minutes_since_start_of_day)
-    
-    
+
+
     ncfile.setncattr('time_coverage_start', dt.datetime.fromtimestamp(min(all_time_coverage_start_dt), dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S"))
     ncfile.setncattr('time_coverage_end', dt.datetime.fromtimestamp(max(all_time_coverage_end_dt), dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S"))
     ncfile.setncattr('platform', 'cdao')
@@ -153,18 +153,18 @@ def make_netcdf_snr_winds(trw_files, metadata_file = None, ncfile_location = '.'
     ncfile.setncattr('instrument_software_version', all_attrs['instrument_software_version'][0])
     ncfile.setncattr('averaging_interval', all_attrs['averaging_interval'][0])
     ncfile.setncattr('sampling_interval', all_attrs['sampling_interval'][0])
-    
+
     util.add_metadata_to_netcdf(ncfile, metadata_file)
-    
+
     ncfile.close()
-    
+
     if verbose: print('Removing empty variables')
     remove_empty_variables.main(f'{ncfile_location}/ncas-radar-wind-profiler-1_cdao_{file_date}_snr-winds_{options}v1.0.nc', verbose = verbose, skip_check = True)
-    
-    
-    
-    
-    
+
+
+
+
+
 def main():
     import argparse
     parser = argparse.ArgumentParser(description = 'Create AMOF-compliant netCDF file for ncas-radar-wind-profiler-1 instrument.')
@@ -176,12 +176,12 @@ def main():
     # there is only one data product at the moment - snr-winds - but this code will stay here commented out in case of future need
     #parser.add_argument('-p','--products', nargs = '*', help = 'Products of ncas-radar-wind-profiler-1 to make netCDF files for. Options are snr-winds. One or many can be given (space separated), default is "snr-winds".', default = ['snr-winds'])
     args = parser.parse_args()
-    
+
     if args.options != '' and args.options[-1] != '_':
         options = args.options + '_'
     else:
         options = args.options
-    
+
     # again this code is still here for any potential future use
     '''
     for prod in args.products:
@@ -190,7 +190,7 @@ def main():
         print(f'WARNING: {prod} is not recognised for this instrument, continuing with other prodcuts...')
     '''
     make_netcdf_snr_winds(args.input_file, metadata_file = args.metadata, ncfile_location = args.ncfile_location, verbose = args.verbose, options = options)
-    
-    
+
+
 if __name__ == "__main__":
     main()
