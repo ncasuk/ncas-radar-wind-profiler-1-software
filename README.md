@@ -10,7 +10,7 @@ Requirements
 * python modules:
   * netCDF4
   * numpy
-  * [ncas_amof_netcdf_template](https://ncas-amof-netcdf-template.readthedocs.io/en/latest/index.html)
+  * [ncas_amof_netcdf_template](https://ncas-amof-netcdf-template.readthedocs.io/en/stable/index.html)
 
 Installation
 ------------
@@ -53,9 +53,9 @@ Within `make_netcdf.sh`, the following may need adjusting:
 
 ## Further Information
 
-* `read_wp.py` contains the code that actually reads the raw data. This is called from within the process wp python code.
+* `read_wp.py` contains the code that actually reads the raw data. This is called from within `process_wp.py`.
 * Some quality control is performed on the data. This is based on code from Emily Norton, the instrument scientist, and is included within `read_wp.py`.
 * See [ncas_amof_netcdf_template] or its [documentation] for more information on how the netCDF file is created, and the additional useful functions it contains.
 
-[documentation]: https://ncas-amof-netcdf-template.readthedocs.io/en/latest/index.html
+[documentation]: https://ncas-amof-netcdf-template.readthedocs.io/en/stable/index.html
 [ncas_amof_netcdf_template]: https://github.com/joshua-hampton/ncas_amof_netcdf_template
