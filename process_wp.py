@@ -20,6 +20,10 @@ def make_netcdf_snr_winds(trw_files, metadata_file = None, ncfile_location = '.'
     """
     trw_files - list
     """
+    if len(trw_files) == 0:
+        msg = "No raw data files found!")
+        raise ValueError(msg)
+
     all_data = {}
     all_attrs = {}
     all_unix_times = []
