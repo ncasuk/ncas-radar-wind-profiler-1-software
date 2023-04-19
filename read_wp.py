@@ -946,29 +946,7 @@ def main(full_filename, verbose=0, classification=0, variance_test=1):
         # lines 1278-1284
         # wind direction 'from', wind speed 'horizontal'
         # AMOF standard states wind speed and direction should be 32bit floats
-        if v_north[k] != 0:
-            wp_winddir[k] = np.arctan(np.abs(u_east[k])/np.abs(v_north[k])) * (180/np.pi)
-            if u_east[k] > 0:
-                if v_north[k] > 0:
-                    wp_winddir[k] += 180
-                elif v_north[k] < 0:
-                    wp_winddir[k] += 270
-            elif u_east[k] < 0:
-                if v_north[k] > 0:
-                    wp_winddir[k] += 90
-            else:
-                if v_north[k] > 0:
-                    wp_winddir[k] = 180
-                elif v_north[k] < 0:
-                    wp_winddir[k] = 0
-        elif v_north[k] == 0:
-            if u_east[k] > 0:
-                wp_winddir[k] = 270
-            elif u_east[k] < 0:
-                wp_winddir[k] = 90
-            elif u_east[k] == 0:  # no wind
-                wp_winddir[k] = 0
-
+        wp_winddir[k] = (180/np.pi) * np.arctan2(-u_east[k], -v_north[k])
         wp_winddir[k] = np.float32(wp_winddir[k])
             
         wp_windspeed[k] = np.float32(((u_east[k] ** 2) + (v_north[k] ** 2)) ** 0.5)
