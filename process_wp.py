@@ -108,8 +108,7 @@ def make_netcdf_snr_winds(trw_files, metadata_file = None, ncfile_location = '.'
         create_netcdf.main('ncas-radar-wind-profiler-1', date = file_date, dimension_lengths = {'time':len(all_data['time']), 'altitude': all_data['altitude'].shape[1]}, loc = 'land', products = ['snr-winds'], file_location = ncfile_location)
     else:
         create_netcdf.main('ncas-radar-wind-profiler-1', date = file_date, dimension_lengths = {'time':len(all_data['time']), 'altitude': all_data['altitude'].shape[1]}, loc = 'land', products = ['snr-winds'], file_location = ncfile_location, options = options[:-1])
-    os.rename(f'{ncfile_location}/ncas-radar-wind-profiler-1_mobile_{file_date}_snr-winds_{options}v1.0.nc',f'{ncfile_location}/ncas-radar-wind-profiler-1_cdao_{file_date}_snr-winds_{options}v1.0.nc')
-    ncfile = Dataset(f'{ncfile_location}/ncas-radar-wind-profiler-1_cdao_{file_date}_snr-winds_{options}v1.0.nc', 'a')
+    ncfile = Dataset(f'{ncfile_location}/ncas-radar-wind-profiler-1_mobile_{file_date}_snr-winds_{options}v1.0.nc', 'a')
 
     if verbose: print('Adding variable data to file')
     util.update_variable(ncfile, 'altitude', all_data['altitude'][0])
@@ -151,7 +150,7 @@ def make_netcdf_snr_winds(trw_files, metadata_file = None, ncfile_location = '.'
 
     ncfile.setncattr('time_coverage_start', dt.datetime.fromtimestamp(min(all_time_coverage_start_dt), dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S"))
     ncfile.setncattr('time_coverage_end', dt.datetime.fromtimestamp(max(all_time_coverage_end_dt), dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S"))
-    ncfile.setncattr('platform', 'cdao')
+    ncfile.setncattr('platform', 'mobile')
     ncfile.setncattr('platform_altitude', all_attrs['platform_altitude'][0])
     ncfile.setncattr('geospatial_bounds', all_attrs['geospatial_bounds'][0])
     ncfile.setncattr('instrument_software_version', all_attrs['instrument_software_version'][0])
@@ -163,7 +162,7 @@ def make_netcdf_snr_winds(trw_files, metadata_file = None, ncfile_location = '.'
     ncfile.close()
 
     if verbose: print('Removing empty variables')
-    remove_empty_variables.main(f'{ncfile_location}/ncas-radar-wind-profiler-1_cdao_{file_date}_snr-winds_{options}v1.0.nc', verbose = verbose, skip_check = True)
+    remove_empty_variables.main(f'{ncfile_location}/ncas-radar-wind-profiler-1_mobile_{file_date}_snr-winds_{options}v1.0.nc', verbose = verbose, skip_check = True)
 
 
 

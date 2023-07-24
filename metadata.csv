@@ -5,8 +5,8 @@ instrument_software,radtrt
 calibration_sensitivity,not applicable
 calibration_certification_date,not applicable
 calibration_certification_url,not applicable
-location_keywords,Capel Dewi, Wales, UK
-project,Capel Dewi
+location_keywords,Netheravon, Wiltshire, UK
+project,WesCon - Observing the Evolving Structures of Turbulence (WOEST)
 processing_software_url,https://github.com/ncasuk/ncas-radar-wind-profiler-1-software.git
 processing_software_version,v2.0
 title,profiles of wind speeds, wind direction, snr, width and skew
