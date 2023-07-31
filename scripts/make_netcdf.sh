@@ -4,13 +4,14 @@
 # ./make_netcdf.sh YYYYmmdd
 #
 
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-
+deployment=20230710_woest
 gws_path=/gws/pw/j07/ncas_obs_vol1/amf
 
-netcdf_path=${gws_path}/processing/ncas-radar-wind-profiler-1/netcdf_files
-filepath_trt0=${gws_path}/raw_data/ncas-radar-wind-profiler-1/incoming/TRT0
-filepath_trt1=${gws_path}/raw_data/ncas-radar-wind-profiler-1/incoming/TRT1
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+netcdf_path=${gws_path}/processing/ncas-radar-wind-profiler-1/${deployment}
+filepath_trt0=${gws_path}/raw_data/ncas-radar-wind-profiler-1/incoming/${deployment}/TRT0
+filepath_trt1=${gws_path}/raw_data/ncas-radar-wind-profiler-1/incoming/${deployment}/TRT1
 logfilepath=${gws_path}/logs/ncas-radar-wind-profiler-1
 metadata_file=${SCRIPT_DIR}/../metadata.csv
 
@@ -21,6 +22,7 @@ year=${datadate:0:4}
 month=${datadate:4:2}
 day=${datadate:6:2}
 
+mkdir -p ${netcdf_path}/${year}/${month}
 
 # month needs to be alpha-numeric-ised (I'm going with it)
 
@@ -45,8 +47,8 @@ no_trt0_files=$(ls ${filepath_trt0}/${year}/${month}/${year}${anmonth}${day}.trt
 trt1_files=$(ls ${filepath_trt1}/${year}/${month}/${year}${anmonth}${day}.trt/*.trw)
 no_trt1_files=$(ls ${filepath_trt1}/${year}/${month}/${year}${anmonth}${day}.trt/*.trw | wc -l)
 
-python ${SCRIPT_DIR}/../process_wp.py ${trt0_files} -o ${netcdf_path} -t high-mode_15min -m ${metadata_file}
-python ${SCRIPT_DIR}/../process_wp.py ${trt1_files} -o ${netcdf_path} -t low-mode_15min -m ${metadata_file}
+python ${SCRIPT_DIR}/../process_wp.py ${trt0_files} -o ${netcdf_path}/${year}/${month} -t 5min -m ${metadata_file}
+python ${SCRIPT_DIR}/../process_wp.py ${trt1_files} -o ${netcdf_path}/${year}/${month} -t 15min -m ${metadata_file}
 
 
 if [ -f ${netcdf_path}/ncas-radar-wind-profiler-1_mobile_${year}${month}${day}_snr-winds_low-mode_*.nc ]
